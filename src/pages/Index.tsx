@@ -9,6 +9,7 @@ import CaseStudiesSection from '@/components/CaseStudiesSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import CtaSection from '@/components/CtaSection';
 import Footer from '@/components/Footer';
+import PageTransition from '@/components/PageTransition';
 
 const fadeVariants = {
   hidden: { opacity: 0 },
@@ -31,12 +32,14 @@ const HomePage = () => {
       className="min-h-screen"
     >
       <Navbar />
-      <HeroSection />
-      <ServicesSection />
-      <AboutSection />
-      <CaseStudiesSection />
-      <TestimonialsSection />
-      <CtaSection />
+      <PageTransition>
+        <HeroSection />
+        <ServicesSection />
+        <AboutSection />
+        <CaseStudiesSection />
+        <TestimonialsSection />
+        <CtaSection />
+      </PageTransition>
       <Footer />
     </motion.div>
   );
