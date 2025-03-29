@@ -1,14 +1,45 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
-const Index = () => {
+import React, { useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import Navbar from '@/components/Navbar';
+import HeroSection from '@/components/HeroSection';
+import ServicesSection from '@/components/ServicesSection';
+import AboutSection from '@/components/AboutSection';
+import CaseStudiesSection from '@/components/CaseStudiesSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import CtaSection from '@/components/CtaSection';
+import Footer from '@/components/Footer';
+
+const fadeVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+const HomePage = () => {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start('visible');
+  }, [controls]);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <motion.div
+      initial="hidden"
+      animate={controls}
+      variants={fadeVariants}
+      transition={{ duration: 0.8 }}
+      className="min-h-screen"
+    >
+      <Navbar />
+      <HeroSection />
+      <ServicesSection />
+      <AboutSection />
+      <CaseStudiesSection />
+      <TestimonialsSection />
+      <CtaSection />
+      <Footer />
+    </motion.div>
   );
 };
 
-export default Index;
+export default HomePage;
