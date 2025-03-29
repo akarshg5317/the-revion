@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import ServiceDetailModal from '@/components/ServiceDetailModal';
 
 const serviceCategories = [
   {
@@ -127,6 +128,18 @@ const itemVariants = {
 };
 
 const Services = () => {
+  const [selectedService, setSelectedService] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openServiceModal = (service: any) => {
+    setSelectedService(service);
+    setIsModalOpen(true);
+  };
+
+  const closeServiceModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -192,10 +205,13 @@ const Services = () => {
                       </div>
                       
                       <div className="mt-6">
-                        <Link to="#" className="inline-flex items-center text-primary font-medium">
+                        <button 
+                          onClick={() => openServiceModal(category)}
+                          className="inline-flex items-center text-primary font-medium"
+                        >
                           Learn more 
                           <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </motion.div>
@@ -283,6 +299,14 @@ const Services = () => {
           </section>
         </main>
       </PageTransition>
+      
+      {/* Service Detail Modal */}
+      <ServiceDetailModal 
+        isOpen={isModalOpen}
+        onClose={closeServiceModal}
+        service={selectedService}
+      />
+      
       <Footer />
     </div>
   );

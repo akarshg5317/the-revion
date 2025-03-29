@@ -1,11 +1,12 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Star, MessageCircle, BarChart2 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import { Button } from '@/components/ui/button';
+import CaseStudyDetailModal from '@/components/CaseStudyDetailModal';
 
 const caseStudies = [
   {
@@ -145,6 +146,18 @@ const itemVariants = {
 };
 
 const CaseStudies = () => {
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openCaseStudyModal = (caseStudy: any) => {
+    setSelectedCaseStudy(caseStudy);
+    setIsModalOpen(true);
+  };
+
+  const closeCaseStudyModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -226,7 +239,10 @@ const CaseStudies = () => {
                         </ul>
                       </div>
                       
-                      <button className="inline-flex items-center text-primary font-medium mt-2">
+                      <button 
+                        onClick={() => openCaseStudyModal(study)}
+                        className="inline-flex items-center text-primary font-medium mt-2"
+                      >
                         Read full case study 
                         <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
                       </button>
@@ -334,6 +350,14 @@ const CaseStudies = () => {
           </section>
         </main>
       </PageTransition>
+      
+      {/* Case Study Detail Modal */}
+      <CaseStudyDetailModal 
+        isOpen={isModalOpen}
+        onClose={closeCaseStudyModal}
+        caseStudy={selectedCaseStudy}
+      />
+      
       <Footer />
     </div>
   );
